@@ -4,6 +4,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 
+import { Provider } from 'react-redux'
+import { store } from './common/store.js';
+
 import Header from "./components/Header/Header.jsx"
 import Home from "./pages/Home/Home.jsx"
 import Signin from "./pages/Signin/Signin.jsx"
@@ -12,7 +15,7 @@ import Footer from "./components/Footer/Footer.jsx"
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <Router>
       <Header/>
       <Routes>
@@ -22,7 +25,7 @@ root.render(
       </Routes>
       <Footer/>
     </Router>
-  </React.StrictMode>
+  </Provider>
 );
 
 reportWebVitals();

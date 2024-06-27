@@ -1,12 +1,18 @@
 import React, { useEffect } from 'react';
 import { Link } from "react-router-dom";
 
+import { useSelector, useDispatch } from "react-redux"
+import { loginThunk } from "./loginSlice"
 import "./Signin.scss"
 
 function Signin() {
     useEffect(() => {
-        document.title = 'Argent Bank - Sign-in';
+        document.title = 'Argent Bank - Sign-in'
       }, []);
+    const dispatch = useDispatch()
+    async function manageSignin() {
+      await dispatch(loginThunk())
+    }
     return (
         <main class="main bg-dark">
             <section class="sign-in-content">
@@ -28,7 +34,7 @@ function Signin() {
                 {/* <!-- PLACEHOLDER DUE TO STATIC SITE --> */}
                 <Link class="sign-in-button" to="/dashboard">Sign In</Link>
                 {/* <!-- SHOULD BE THE BUTTON BELOW --> */}
-                {/* <!-- <button class="sign-in-button">Sign In</button> --> */}
+                <button class="sign-in-button" onClick={manageSignin} type="button">Sign In</button>
                 {/* <!--  --> */}
               </form>
             </section>
