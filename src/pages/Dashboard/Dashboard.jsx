@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 
+import ProfileHeader from "../../components/ProfileHeader/ProfileHeader.jsx"
+
 import "./Dashboard.scss"
 
 function Dashboard() {
@@ -8,10 +10,7 @@ function Dashboard() {
       }, []);
     return (
         <main className="main bg-dark">
-          <div className="header">
-            <h1>Welcome back<br />Tony Jarvis!</h1>
-            <button className="edit-button">Edit Name</button>
-          </div>
+          <ProfileHeader/>
           <h2 className="sr-only">Accounts</h2>
           <section className="account">
             <div className="account-content-wrapper">
