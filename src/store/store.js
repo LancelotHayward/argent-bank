@@ -1,5 +1,5 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit"
-import loginSlice from "../pages/Signin/loginSlice"
+import loginSlice from "./loginSlice.js"
 import { argentBankApi } from "../service/api.js"
 
 export const store = configureStore({

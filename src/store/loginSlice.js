@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { useLoginMutation, argentBankApi } from "../../service/api.js"
+import { useLoginMutation, argentBankApi } from "../service/api.js"
 
 export const loginThunk = createAsyncThunk(
     "login/loginThunk",
