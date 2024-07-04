@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link } from "react-router-dom";
 
-import { useSelector, useDispatch } from "react-redux"
+import { useDispatch } from "react-redux"
 import { loginThunk } from "./loginSlice"
 import "./Signin.scss"
 
@@ -11,7 +11,7 @@ function Signin() {
       }, []);
     const dispatch = useDispatch()
     async function manageSignin() {
-      await dispatch(loginThunk())
+      await dispatch(loginThunk({email:"tony@stark.com", password: "password123"}))
     }
     return (
         <main className="main bg-dark">
