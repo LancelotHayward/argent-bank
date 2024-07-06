@@ -4,9 +4,8 @@ import { useLoginMutation, argentBankApi } from "../service/api.js"
 export const loginThunk = createAsyncThunk(
     "login/loginThunk",
     async ({email, password}, thunkAPI) => {
-        // const response = await useLoginMutation(email, password)
-        const { data } = await thunkAPI.dispatch(argentBankApi.endpoints.login.initiate(email, password))
-        console.log(data)
+        // const response = await thunkAPI.dispatch(useLoginMutation(email, password))
+        const data = await thunkAPI.dispatch(argentBankApi.endpoints.login.initiate({email, password}))
         return data
     }
 )
@@ -16,7 +15,7 @@ const loginSlice = createSlice({
     initialState: "",
     extraReducers: (builder) => {
        builder.addCase(loginThunk.fulfilled, (state, action) => {
-        state = action.payload?.token || ""
+        state = action.payload?.data?.body?.token || ""
         return state
        })
     }

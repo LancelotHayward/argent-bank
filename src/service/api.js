@@ -7,9 +7,7 @@ export const argentBankApi = createApi({
     }),
     endpoints: (builder) => ({
         login: builder.mutation({
-            query(email, password) {
-                email = "tony@stark.com"
-                password = "password123"
+            query({email, password}) {
                 return {
                     url: "user/login",
                     method: "POST",

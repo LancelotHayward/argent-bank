@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from "react-router-dom";
 
 import { useDispatch } from "react-redux"
 import { loginThunk } from "../../store/loginSlice"
@@ -9,9 +9,25 @@ function Signin() {
     useEffect(() => {
         document.title = 'Argent Bank - Sign-in'
       }, []);
+    const [isLogingIn, setLoginStatus] = useState(false)
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     async function manageSignin() {
-      await dispatch(loginThunk({email:"tony@stark.com", password: "password123"}))
+        if (!isLogingIn) {
+            setLoginStatus(true)
+            const email = document.getElementById("username").value
+            const password = document.getElementById("password").value
+
+            let response = await dispatch(loginThunk({email, password}))
+            if (response.payload.error) {
+                //TODO : Bad password
+                setLoginStatus(false)
+                return
+            }
+            if (response.payload.data.status == 200) {
+                navigate("/dashboard")
+            }
+        }
     }
     return (
         <main className="main bg-dark">
@@ -31,11 +47,7 @@ function Signin() {
                   <input type="checkbox" id="remember-me" />
                   <label htmlFor="remember-me">Remember me</label>
                 </div>
-                {/* <!-- PLACEHOLDER DUE TO STATIC SITE --> */}
-                <Link className="sign-in-button" to="/dashboard">Sign In</Link>
-                {/* <!-- SHOULD BE THE BUTTON BELOW --> */}
                 <button className="sign-in-button" onClick={manageSignin} type="button">Sign In</button>
-                {/* <!--  --> */}
               </form>
             </section>
         </main>

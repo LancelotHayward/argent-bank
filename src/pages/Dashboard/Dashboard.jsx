@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from "react-redux"
 
 import ProfileHeader from "../../components/ProfileHeader/ProfileHeader.jsx"
 
@@ -7,7 +8,10 @@ import "./Dashboard.scss"
 function Dashboard() {
     useEffect(() => {
         document.title = 'Argent Bank - Dashboard';
-      }, []);
+    }, []);
+    // const dispatch = useDispatch()
+    const login = useSelector((state) => state.login)
+    console.log(login)
     return (
         <main className="main bg-dark">
           <ProfileHeader/>
