@@ -5,8 +5,7 @@ export const dashboardThunk = createAsyncThunk(
     "dashboard/dashboardThunk",
     async ({token}, thunkAPI) => {
         // const response = await thunkAPI.dispatch(useLoginMutation(email, password))
-        console.log("boop" + token)
-        const data = await thunkAPI.dispatch(argentBankApi.endpoints.dashboard.initiate({token}))
+        const data = await thunkAPI.dispatch(argentBankApi.endpoints.dashboard.initiate(token))
         return data
     }
 )
@@ -16,8 +15,8 @@ const dashboardSlice = createSlice({
     initialState: "",
     extraReducers: (builder) => {
        builder.addCase(dashboardThunk.fulfilled, (state, action) => {
-        console.log(action.payload)
-        state = action.payload?.data?.body?.token || ""
+        // console.log(action.payload)
+        state = action.payload?.data?.body || ""
         return state
        })
     }

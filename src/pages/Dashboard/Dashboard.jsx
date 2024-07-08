@@ -13,12 +13,8 @@ function Dashboard() {
     }, []);
     const dispatch = useDispatch()
     const token = useSelector((state) => state.login)
-    console.log(token)
-    
     async function getProfileData() {
-        console.log(token)
-        let response = await dispatch(dashboardThunk({token}))
-        console.log(response)
+        const reponse = await dispatch(dashboardThunk({token}))
     }
     getProfileData()
     return (

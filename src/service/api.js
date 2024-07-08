@@ -19,13 +19,12 @@ export const argentBankApi = createApi({
             } 
         }),
         dashboard: builder.mutation({
-            query({token}) {
-                console.log("zoop" + token)
+            query(token) {
                 return {
                     url: "user/profile",
                     method: "POST",
                     headers: {
-                        Authorization: token
+                        authorization: "Bearer " + token
                     }
                 }
             }

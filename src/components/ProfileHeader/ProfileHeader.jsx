@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import { useSelector } from "react-redux"
 import "./ProfileHeader.scss"
 
 function ProfileHeader() {
-    const [username, setUsername] = useState(["Tony", "Jarvis"])
+    const profile = useSelector((state) => state.dashboard)
+    const [username, setUsername] = useState([profile.firstName, profile.lastName])
     const [isEditingName, setEditingName] = useState(false)
     function toggleNameEditing() {
         setEditingName(!isEditingName)
@@ -14,6 +16,7 @@ function ProfileHeader() {
             setUsername([names[0], names[1]])
         }
     }
+    console.log(profile)
     if (isEditingName) {
         return (
             <div className="header">
