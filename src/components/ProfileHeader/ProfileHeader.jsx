@@ -1,22 +1,29 @@
 import { useState } from 'react';
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
+import { profileThunk } from "../../store/profileSlice"
 import "./ProfileHeader.scss"
 
 function ProfileHeader() {
     const profile = useSelector((state) => state.dashboard)
+    const token = useSelector((state) => state.login)
+    const dispatch = useDispatch()
     const [username, setUsername] = useState([profile.firstName, profile.lastName])
     const [isEditingName, setEditingName] = useState(false)
     function toggleNameEditing() {
         setEditingName(!isEditingName)
     }
-    function saveName() {
+    async function saveName() {
+        console.log(profile)
         const names = Array.from(document.getElementsByClassName("nameInput")).map(name => name.value)
         if (names.every(name => name.length > 0)) {
             toggleNameEditing()
-            setUsername([names[0], names[1]])
+            const firstName = names[0]
+            const lastName = names[1]
+            // setUsername([names[0], names[1]])
+            const response = await dispatch(profileThunk({token, firstName, lastName}))
+            console.log(response)
         }
     }
-    console.log(profile)
     if (isEditingName) {
         return (
             <div className="header">

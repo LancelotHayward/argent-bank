@@ -28,6 +28,21 @@ export const argentBankApi = createApi({
                     }
                 }
             }
+        }),
+        profile: builder.mutation({
+            query({token, firstName, lastName}) {
+                return {
+                    url: "user/profile",
+                    method: "PUT",
+                    headers: {
+                        authorization: "Bearer " + token
+                    },
+                    body: {
+                        firstName,
+                        lastName
+                    }
+                }
+            }
         })
     })
 })

@@ -13,10 +13,7 @@ function Dashboard() {
     }, []);
     const dispatch = useDispatch()
     const token = useSelector((state) => state.login)
-    async function getProfileData() {
-        const reponse = await dispatch(dashboardThunk({token}))
-    }
-    getProfileData()
+    dispatch(dashboardThunk({token}))
     return (
         <main className="main bg-dark">
           <ProfileHeader/>

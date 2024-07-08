@@ -15,7 +15,6 @@ const dashboardSlice = createSlice({
     initialState: "",
     extraReducers: (builder) => {
        builder.addCase(dashboardThunk.fulfilled, (state, action) => {
-        // console.log(action.payload)
         state = action.payload?.data?.body || ""
         return state
        })
