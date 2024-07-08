@@ -21,5 +21,4 @@ const loginSlice = createSlice({
     }
 })
 
-export const {tempReducer} = loginSlice.actions
 export default loginSlice.reducer

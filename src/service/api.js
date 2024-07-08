@@ -14,9 +14,21 @@ export const argentBankApi = createApi({
                     body: {
                         email,
                         password
-                    },                  
+                    }               
                 }
             } 
+        }),
+        dashboard: builder.mutation({
+            query({token}) {
+                console.log("zoop" + token)
+                return {
+                    url: "user/profile",
+                    method: "POST",
+                    headers: {
+                        Authorization: token
+                    }
+                }
+            }
         })
     })
 })

@@ -2,6 +2,8 @@ import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from "react-redux"
 
 import ProfileHeader from "../../components/ProfileHeader/ProfileHeader.jsx"
+import { dashboardThunk } from "../../store/dashboardSlice"
+
 
 import "./Dashboard.scss"
 
@@ -9,9 +11,16 @@ function Dashboard() {
     useEffect(() => {
         document.title = 'Argent Bank - Dashboard';
     }, []);
-    // const dispatch = useDispatch()
-    const login = useSelector((state) => state.login)
-    console.log(login)
+    const dispatch = useDispatch()
+    const token = useSelector((state) => state.login)
+    console.log(token)
+    
+    async function getProfileData() {
+        console.log(token)
+        let response = await dispatch(dashboardThunk({token}))
+        console.log(response)
+    }
+    getProfileData()
     return (
         <main className="main bg-dark">
           <ProfileHeader/>
