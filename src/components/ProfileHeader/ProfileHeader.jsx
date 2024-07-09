@@ -1,27 +1,31 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from "react-redux"
 import { profileThunk } from "../../store/profileSlice"
+import { dashboardThunk } from "../../store/dashboardSlice"
 import "./ProfileHeader.scss"
 
 function ProfileHeader() {
     const profile = useSelector((state) => state.dashboard)
     const token = useSelector((state) => state.login)
     const dispatch = useDispatch()
-    const [username, setUsername] = useState([profile.firstName, profile.lastName])
     const [isEditingName, setEditingName] = useState(false)
     function toggleNameEditing() {
         setEditingName(!isEditingName)
     }
     async function saveName() {
-        console.log(profile)
         const names = Array.from(document.getElementsByClassName("nameInput")).map(name => name.value)
-        if (names.every(name => name.length > 0)) {
+        if (names.every(name => {
+            if (name.length <= 0) {
+                return false
+            }
+            if (name === undefined) {
+                return false
+            }
+            return true
+        })) {
             toggleNameEditing()
-            const firstName = names[0]
-            const lastName = names[1]
-            // setUsername([names[0], names[1]])
-            const response = await dispatch(profileThunk({token, firstName, lastName}))
-            console.log(response)
+            dispatch(profileThunk({token, firstName: names[0], lastName: names[1]}))
+            dispatch(dashboardThunk({token}))
         }
     }
     if (isEditingName) {
@@ -30,11 +34,11 @@ function ProfileHeader() {
                 <h1>Welcome back</h1>
                 <div className="edit">
                     <div id="leftEdit">
-                        <input type="text" placeholder={username[0]} className="nameInput"/>
+                        <input type="text" placeholder={profile.firstName} className="nameInput"/>
                         <button onClick={saveName}>Save</button>
                     </div>
                     <div>
-                        <input type="text" placeholder={username[1]} className="nameInput"/>
+                        <input type="text" placeholder={profile.lastName} className="nameInput"/>
                         <button onClick={toggleNameEditing}>Cancel</button>
                     </div>
                 </div>
@@ -43,7 +47,7 @@ function ProfileHeader() {
     }
     return (
         <div className="header">
-            <h1>Welcome back<br />{username[0] + " " + username[1]} !</h1>
+            <h1>Welcome back<br />{profile.firstName + " " + profile.lastName} !</h1>
             <button className="edit-button" onClick={toggleNameEditing}>Edit Name</button>
         </div>
     )

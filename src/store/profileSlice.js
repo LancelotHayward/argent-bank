@@ -5,7 +5,6 @@ export const profileThunk = createAsyncThunk(
     "profile/profileThunk",
     async ({token, firstName, lastName}, thunkAPI) => {
         // const response = await thunkAPI.dispatch(useLoginMutation(email, password))
-        console.log(firstName + " " + lastName)
         const data = await thunkAPI.dispatch(argentBankApi.endpoints.profile.initiate({token, firstName, lastName}))
         return data
     }
