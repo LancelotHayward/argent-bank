@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { argentBankApi } from "../service/api.js"
+import { revertAll } from "./revertAll.js"
 
 export const profileThunk = createAsyncThunk(
     "profile/profileThunk",
@@ -14,10 +15,12 @@ const profileSlice = createSlice({
     name: "profile",
     initialState: "",
     extraReducers: (builder) => {
-       builder.addCase(profileThunk.fulfilled, (state, action) => {
-        state = action.payload?.data?.body || ""
-        return state
-       })
+       builder
+        .addCase(profileThunk.fulfilled, (state, action) => {
+            state = action.payload?.data?.body || ""
+            return state
+        })
+        .addCase(revertAll, () => "")
     }
 })
 

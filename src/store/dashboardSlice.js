@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { argentBankApi } from "../service/api.js"
+import { revertAll } from "./revertAll.js"
 
 export const dashboardThunk = createAsyncThunk(
     "dashboard/dashboardThunk",
@@ -14,10 +15,12 @@ const dashboardSlice = createSlice({
     name: "dashboard",
     initialState: "",
     extraReducers: (builder) => {
-       builder.addCase(dashboardThunk.fulfilled, (state, action) => {
-        state = action.payload?.data?.body || ""
-        return state
-       })
+       builder
+        .addCase(dashboardThunk.fulfilled, (state, action) => {
+            state = action.payload?.data?.body || ""
+            return state
+        })
+        .addCase(revertAll, () => "")
     }
 })
 

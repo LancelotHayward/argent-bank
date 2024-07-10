@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import { useLoginMutation, argentBankApi } from "../service/api.js"
+import { revertAll } from "./revertAll.js"
 
 export const loginThunk = createAsyncThunk(
     "login/loginThunk",
@@ -14,10 +15,12 @@ const loginSlice = createSlice({
     name: "login",
     initialState: "",
     extraReducers: (builder) => {
-       builder.addCase(loginThunk.fulfilled, (state, action) => {
-        state = action.payload?.data?.body?.token || ""
-        return state
-       })
+       builder
+        .addCase(loginThunk.fulfilled, (state, action) => {
+            state = action.payload?.data?.body?.token || ""
+            return state
+        })
+        .addCase(revertAll, () => "")
     }
 })
 
