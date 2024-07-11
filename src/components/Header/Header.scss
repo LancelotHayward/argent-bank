@@ -17,6 +17,9 @@
 .main-nav-item {
     text-decoration: none;
     margin-right: 0.5rem;
+    display: flex;
+    gap: 10px;
+    font-weight: bold;
 }
 
 .main-nav-item:hover {
@@ -31,4 +34,8 @@
 .main-nav-logo-image {
     max-width: 100%;
     width: 200px;
+}
+
+.fa-user-circle {
+    margin-right: 5px;
 }
