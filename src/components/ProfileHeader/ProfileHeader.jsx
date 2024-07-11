@@ -33,12 +33,12 @@ function ProfileHeader() {
             <div className="header">
                 <h1>Welcome back</h1>
                 <div className="edit">
-                    <div id="leftEdit">
+                    <div id="inputs">
                         <input type="text" placeholder={profile.firstName} className="nameInput"/>
-                        <button onClick={saveName}>Save</button>
-                    </div>
-                    <div>
                         <input type="text" placeholder={profile.lastName} className="nameInput"/>
+                    </div>
+                    <div id="buttons">
+                        <button onClick={saveName}>Save</button>
                         <button onClick={toggleNameEditing}>Cancel</button>
                     </div>
                 </div>

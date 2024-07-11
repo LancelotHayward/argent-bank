@@ -1,16 +1,17 @@
 .edit {
-    display: flex;
-    justify-content: center;
-    gap: 24px;
+    // display: flex;
+    // justify-content: center;
+    // gap: 24px;
 
     &>div {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
+        // display: flex;
+        // flex-direction: column;
+        // gap: 12px;
 
         input {
             border-radius: 5px;
             padding: 12px 20px;
+            margin-inline: 12px;
             width: 300px;
             font-size: 16px;
             outline: none;
@@ -18,11 +19,12 @@
 
         button {
             width: 200px;
+            margin: 12px;
             padding-block: 16px;
+            border-color: #00bc77;
+            background-color: #00bc77;
+            color: #fff;
+            font-weight: bold;
         }
-    }
-
-    #leftEdit {
-        align-items: flex-end;
     }
 }
