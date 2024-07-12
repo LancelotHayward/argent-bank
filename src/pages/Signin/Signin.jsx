@@ -8,8 +8,9 @@ import "./Signin.scss"
 function Signin() {
     useEffect(() => {
         document.title = 'Argent Bank - Sign-in'
-      }, []);
+      })
     const [isLogingIn, setLoginStatus] = useState(false)
+    const [errorClasses, setErrorClasses] = useState("error hidden")
     const navigate = useNavigate()
     const dispatch = useDispatch()
     async function manageSignin() {
@@ -20,8 +21,8 @@ function Signin() {
 
             let response = await dispatch(loginThunk({email, password}))
             if (response.payload.error) {
-                //TODO : Bad password
                 setLoginStatus(false)
+                setErrorClasses("error")
                 return
             }
             if (response.payload.data.status === 200) {
@@ -50,6 +51,7 @@ function Signin() {
                   <input type="checkbox" id="remember-me" />
                   <label htmlFor="remember-me">Remember me</label>
                 </div>
+                <p className={errorClasses}>Incorrect email or password, please try again.</p>
                 <button className="sign-in-button" onClick={manageSignin} type="button">Sign In</button>
               </form>
             </section>
