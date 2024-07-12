@@ -11,14 +11,14 @@ function Signin() {
       })
     const [isLogingIn, setLoginStatus] = useState(false)
     const [errorClasses, setErrorClasses] = useState("error hidden")
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const [remember, setRemember] = useState(false)
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    async function manageSignin() {
+    async function manageSignIn() {
         if (!isLogingIn) {
             setLoginStatus(true)
-            const email = document.getElementById("username").value
-            const password = document.getElementById("password").value
-
             let response = await dispatch(loginThunk({email, password}))
             if (response.payload.error) {
                 setLoginStatus(false)
@@ -26,7 +26,7 @@ function Signin() {
                 return
             }
             if (response.payload.data.status === 200) {
-              if (document.getElementById("remember-me").checked) {
+              if (remember) {
                   localStorage.setItem('cookieToken', response.payload.data.body.token)
               }  
                 navigate("/dashboard")
@@ -41,18 +41,18 @@ function Signin() {
               <form>
                 <div className="input-wrapper">
                   <label htmlFor="username">Username</label>
-                  <input type="text" id="username" />
+                  <input type="text" id="username" onChange={e => setEmail(e.target.value)}/>
                 </div>
                 <div className="input-wrapper">
                   <label htmlFor="password">Password</label>
-                  <input type="password" id="password" />
+                  <input type="password" id="password" onChange={e => setPassword(e.target.value)}/>
                 </div>
                 <div className="input-remember">
-                  <input type="checkbox" id="remember-me" />
+                  <input type="checkbox" id="remember-me" onChange={e => setRemember(e.target.checked)}/>
                   <label htmlFor="remember-me">Remember me</label>
                 </div>
                 <p className={errorClasses}>Incorrect email or password, please try again.</p>
-                <button className="sign-in-button" onClick={manageSignin} type="button">Sign In</button>
+                <button className="sign-in-button" onClick={manageSignIn} type="button">Sign In</button>
               </form>
             </section>
         </main>

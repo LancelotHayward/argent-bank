@@ -9,22 +9,12 @@ function ProfileHeader() {
     const token = useSelector((state) => state.login)
     const dispatch = useDispatch()
     const [isEditingName, setEditingName] = useState(false)
-    function toggleNameEditing() {
-        setEditingName(!isEditingName)
-    }
+    const [firstName, setFirstName] = useState("")
+    const [lastName, setLastName] = useState("")
     async function saveName() {
-        const names = Array.from(document.getElementsByClassName("nameInput")).map(name => name.value)
-        if (names.every(name => {
-            if (name.length <= 0) {
-                return false
-            }
-            if (name === undefined) {
-                return false
-            }
-            return true
-        })) {
-            toggleNameEditing()
-            dispatch(profileThunk({token, firstName: names[0], lastName: names[1]}))
+        if (firstName?.length > 0 && lastName?.length > 0) {
+            setEditingName(!isEditingName)
+            dispatch(profileThunk({token, firstName, lastName}))
             dispatch(dashboardThunk({token}))
         }
     }
@@ -34,12 +24,12 @@ function ProfileHeader() {
                 <h1>Welcome back</h1>
                 <div className="edit">
                     <div id="inputs">
-                        <input type="text" placeholder={profile.firstName} className="nameInput"/>
-                        <input type="text" placeholder={profile.lastName} className="nameInput"/>
+                        <input type="text" placeholder={profile.firstName} onChange={e => setFirstName(e.target.value)}/>
+                        <input type="text" placeholder={profile.lastName} onChange={e => setLastName(e.target.value)}/>
                     </div>
                     <div id="buttons">
                         <button onClick={saveName}>Save</button>
-                        <button onClick={toggleNameEditing}>Cancel</button>
+                        <button onClick={e => setEditingName(!isEditingName)}>Cancel</button>
                     </div>
                 </div>
             </div>
@@ -48,7 +38,7 @@ function ProfileHeader() {
     return (
         <div className="header">
             <h1>Welcome back<br />{profile.firstName + " " + profile.lastName} !</h1>
-            <button className="edit-button" onClick={toggleNameEditing}>Edit Name</button>
+            <button className="edit-button" onClick={e => setEditingName(!isEditingName)}>Edit Name</button>
         </div>
     )
 }
