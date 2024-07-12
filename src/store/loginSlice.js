@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
-import { useLoginMutation, argentBankApi } from "../service/api.js"
+import { argentBankApi } from "../service/api.js"
 import { revertAll } from "./revertAll.js"
+import { updateToken } from "./updateToken.js"
 
 export const loginThunk = createAsyncThunk(
     "login/loginThunk",
@@ -10,7 +11,6 @@ export const loginThunk = createAsyncThunk(
         return data
     }
 )
-// TODO : error 400 or 500 (bad password)
 const loginSlice = createSlice({
     name: "login",
     initialState: "",
@@ -21,6 +21,9 @@ const loginSlice = createSlice({
             return state
         })
         .addCase(revertAll, () => "")
+        .addCase(updateToken, (state, { payload: token}) => {
+            return token
+        })
     }
 })
 

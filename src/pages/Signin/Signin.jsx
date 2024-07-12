@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { useDispatch } from "react-redux"
 import { loginThunk } from "../../store/loginSlice"
@@ -24,7 +24,10 @@ function Signin() {
                 setLoginStatus(false)
                 return
             }
-            if (response.payload.data.status == 200) {
+            if (response.payload.data.status === 200) {
+              if (document.getElementById("remember-me").checked) {
+                  localStorage.setItem('cookieToken', response.payload.data.body.token)
+              }  
                 navigate("/dashboard")
             }
         }

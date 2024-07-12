@@ -1,19 +1,31 @@
-import { Link, useNavigate } from "react-router-dom"
+import { useEffect } from 'react'
+import { Link, useNavigate, useLocation } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import { revertAll } from "../../store/revertAll"
-
+import { updateToken } from "../../store/updateToken"
 
 import "./Header.scss"
 
 function Header() {
     const token = useSelector((state) => state.login)
-    const profile = useSelector((state) => state.dashboard)
     const dispatch = useDispatch()
     const navigate = useNavigate()
+    const location = useLocation()
+    useEffect(() => {
+      if (token === "" && location.pathname === "/dashboard") {
+        const cookieToken = localStorage.getItem('cookieToken')
+        if (!cookieToken) {
+          navigate("/")
+        }
+        dispatch(updateToken(cookieToken))
+      }
+  }) 
     function logout() {
       dispatch(revertAll())
+      localStorage.setItem('cookieToken', "")
       navigate("/")
     }
+    const profile = useSelector((state) => state.dashboard)
     let account
     if (!token) {
       account = (

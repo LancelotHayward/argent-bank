@@ -1,18 +1,17 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { useSelector, useDispatch } from "react-redux"
 
 import ProfileHeader from "../../components/ProfileHeader/ProfileHeader.jsx"
 import { dashboardThunk } from "../../store/dashboardSlice"
 
-
 import "./Dashboard.scss"
 
 function Dashboard() {
+    const token = useSelector((state) => state.login)
+    const dispatch = useDispatch() 
     useEffect(() => {
         document.title = 'Argent Bank - Dashboard';
-    }, []);
-    const dispatch = useDispatch()
-    const token = useSelector((state) => state.login)
+    }) 
     dispatch(dashboardThunk({token}))
     return (
         <main className="main bg-dark">
