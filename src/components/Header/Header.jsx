@@ -12,14 +12,14 @@ function Header() {
     const navigate = useNavigate()
     const location = useLocation()
     useEffect(() => {
-      if (token === "" && location.pathname === "/dashboard") {
+      if (token === "" && location.pathname !== "/" && location.pathname !== "/sign-in") {
         const cookieToken = localStorage.getItem('cookieToken')
         if (!cookieToken) {
           navigate("/")
         }
         dispatch(updateToken(cookieToken))
       }
-  }) 
+    }) 
     function logout() {
       dispatch(revertAll())
       localStorage.setItem('cookieToken', "")
