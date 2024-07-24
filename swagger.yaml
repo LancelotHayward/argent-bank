@@ -121,6 +121,7 @@ paths:
       parameters:
         - in: header
           name: Authoriation
+          type: string
           description: AttachBearer JWT token
           required: true
       produces:
@@ -128,12 +129,8 @@ paths:
       responses:
         '200':
           description: User Accounts retrieved successfully
-          schema:
-            $ref: '#/definitions/'
-          '400':
-            description: Invalid Fields
-          '500':
-            description: Internal Server Error
+        '404':
+          description: User Accounts Not Found
   /account/{accountId}:
     get:
       tags:
@@ -143,8 +140,7 @@ paths:
       parameters:
         - in: path
           name: accountId
-          schema:
-            type: integer
+          type: integer
           required: true
           description: Numeric ID of the account to check
       produces:
@@ -152,12 +148,8 @@ paths:
       responses:
         '200':
           description: Account transactions retrieved successfully
-          schema:
-            $ref: '#/definitions/'
-          '400':
-            description: Invalid Fields
-          '500':
-            description: Internal Server Error
+        '404':
+          description: Account transactions not found
   /account/{accountId}/{transactionId}:
     get:
       tags:
@@ -167,14 +159,12 @@ paths:
       parameters:
         - in: path
           name: accountId
-          schema:
-            type: integer
+          type: integer
           required: true
           description: Numeric ID of the account to access
         - in: path
           name: transactionId
-          schema:
-            type: integer
+          type: integer
           required: true
           description: Numeric ID of the transaction to get
       produces:
@@ -182,12 +172,8 @@ paths:
       responses:
         '200':
           description: Account transaction retrieved successfully
-          schema:
-            $ref: '#/definitions/'
-          '400':
-            description: Invalid Fields
-          '500':
-            description: Internal Server Error
+        '404':
+          description: Data not found
     patch:
       tags:
         - Account Module
@@ -196,23 +182,18 @@ paths:
       parameters:
         - in: path
           name: transactionId
-          schema:
-            type: integer
+          type: integer
           required: true
           description: Numeric ID of the transaction to update
         - in: body
           name: body
           description: Update a transaction's notes
           required: true
-          schema:
-            $ref: '#/definitions/'
       produces:
         - application/json
       responses:
         '200':
           description: Account transaction updated successfully
-          schema:
-            $ref: '#/definitions/'
         '400':
           description: Invalid Fields
         '500':
